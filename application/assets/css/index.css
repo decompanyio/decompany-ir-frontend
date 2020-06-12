@@ -53,7 +53,7 @@
   }
 }
 
-.h_categoryWrapper > div {
+.h_categoryWrapper > a > div {
   cursor: pointer;
   padding: 15px 30px;
   font-weight: bold;
@@ -65,7 +65,7 @@
   letter-spacing: -1px;
 }
 
-.h_categoryWrapper > div:last-child {
+.h_categoryWrapper > a:last-child > div {
   border: 1px solid #8cc63e;
   padding: 15px 20px 15px 30px;
 }
@@ -826,4 +826,3 @@ footer {
   align-items: center;
   background: #ececec;
 }
-
