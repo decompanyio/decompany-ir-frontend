@@ -647,7 +647,7 @@
     top: 0;
     background: black;
     width: calc(100% - 32px);
-    height: calc(100% - 5px);
+    height: calc(100% - 3px);
     padding: 2rem;
     text-align: left;
     transition: all ease .3s;
