@@ -2,726 +2,862 @@
 <html class="no-js" lang="">
 
 <head>
-  <meta charset="utf-8">
-  <title></title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!--<link rel="manifest" href="site.webmanifest">-->
-  <link rel="apple-touch-icon" href="icon.png">
-  <!-- Place favicon.ico in the root directory -->
+    <!--<link rel="manifest" href="site.webmanifest">-->
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
 
-  <link rel="stylesheet" href="assets/css/common.css">
-  <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" href="assets/css/index.css">
 
-  <meta name="theme-color" content="#ffffff">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta name="theme-color" content="#ffffff">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-  <script type="text/javascript">
-    (function () {
-      "use strict";
+    <script type="text/javascript">
+        (function () {
+            "use strict";
 
-      $(function () {
+            $(function () {
 
+                let pressShowFlag = 1;
+                let totalPressListCount = $("#newsCardContainer > div").length - 2;
 
-        // click news left arrow
-        $('#newsArrowLeft').click(function () {
-          $('#newsCardSection_1').addClass('show')
-          $('#newsCardSection_2').removeClass('show')
-        })
+                function removeClassPress () {
+                    for(let i =1; i <= totalPressListCount; ++ i) {
+                        $('#newsCardSection_' + i).removeClass('show')
+                    }
+                }
 
-        // click news right arrow
-        $('#newsArrowRight').click(function () {
-          $('#newsCardSection_1').removeClass('show')
-          $('#newsCardSection_2').addClass('show')
-        })
+                // click news left arrow
+                $('#newsArrowLeft').click(function () {
+                    removeClassPress()
+                    pressShowFlag = 0 >= pressShowFlag - 1 ? totalPressListCount : pressShowFlag - 1
+                    $('#newsCardSection_' + pressShowFlag).addClass('show')
+                })
 
-        $("#menuBtn").click(function () {
-          $('#menu').css('display', 'block')
-          $('body').css('overflow', 'hidden')
+                // click news right arrow
+                $('#newsArrowRight').click(function () {
+                    removeClassPress()
+                    pressShowFlag = totalPressListCount < pressShowFlag + 1 ? 1 : pressShowFlag + 1
+                    $('#newsCardSection_' + pressShowFlag).addClass('show')
+                })
 
-          setTimeout(function () {
-            $('#mContainer').addClass('m_showContainer')
-            $('#mWrapper').addClass('m_showWrapper')
-          }, 100)
-        })
+                $("#menuBtn").click(function () {
+                    $('#menu').css('display', 'block')
+                    $('body').css('overflow', 'hidden')
 
-        $("#menuCloseBtn").click(function () {
-          $('#mContainer').removeClass('m_showContainer')
-          $('#mWrapper').removeClass('m_showWrapper')
+                    setTimeout(function () {
+                        $('#mContainer').addClass('m_showContainer')
+                        $('#mWrapper').addClass('m_showWrapper')
+                    }, 100)
+                })
 
-          setTimeout(function () {
-            $('#menu').css('display', 'none')
-            $('body').css('overflow', 'auto')
-          }, 500)
-        })
-      });
-    })();
-  </script>
+                $("#menuCloseBtn").click(function () {
+                    $('#mContainer').removeClass('m_showContainer')
+                    $('#mWrapper').removeClass('m_showWrapper')
+
+                    setTimeout(function () {
+                        $('#menu').css('display', 'none')
+                        $('body').css('overflow', 'auto')
+                    }, 500)
+                })
+            });
+        })();
+    </script>
 </head>
 
 <body>
 <!--[if IE]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
-  your browser</a> to improve your experience and security.</p>
+    your browser</a> to improve your experience and security.</p>
 <![endif]-->
 
 
 <div>
 
-  <!--HEADER-->
-  <header>
-    <div class="h_container row">
-      <div class="h_firstSection col-3">
-        <div class="h_logoContainer">
-          <a href="/">
-            <img src="assets/img/logo.png" alt="decompany logo"/>
-          </a>
-        </div>
-      </div>
-      <div class="h_secondSection col-9">
-        <div class="h_categoryWrapper d-flex">
-          <a href="#fourthSection">
-            <div>DECOMPANY TODAY</div>
-          </a>
-          <a href="#fifthSection">
-            <div>TEAMS</div>
-          </a>
-          <a href="#seventhSection">
-            <div>
-              Connect with us
-              <span class="c_arrow_right ml-3"></span>
+    <!--HEADER-->
+    <header>
+        <div class="h_container row">
+            <div class="h_firstSection col-3">
+                <div class="h_logoContainer">
+                    <a href="/">
+                        <img src="assets/img/logo.png" alt="decompany logo"/>
+                    </a>
+                </div>
             </div>
-          </a>
+            <div class="h_secondSection col-9">
+                <div class="h_categoryWrapper d-flex">
+                    <a href="#fourthSection">
+                        <div>DECOMPANY TODAY</div>
+                    </a>
+                    <a href="#fifthSection">
+                        <div>TEAMS</div>
+                    </a>
+                    <a href="#seventhSection">
+                        <div>
+                            Connect with us
+                            <span class="c_arrow_right ml-3"></span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="m_bugger" id="menuBtn"><span></span></div>
+            </div>
+
+            <div id="menu">
+                <div class="m_wrapper" id="mWrapper"></div>
+                <div class="m_container" id="mContainer">
+                    <div class="m_title" lang="en">
+                        <div class="m_close" id="menuCloseBtn"><span></span></div>
+                    </div>
+                    <div class="m_list">
+                        <div class="m_listItem">
+                            <a href="#fourthSection" id="h_summary_sub" title="link to Summary" lang="en">Decompany
+                                Today</a>
+                        </div>
+                        <div class="m_listItem">
+                            <a href="#fifthSection" id="h_service_sub" title="link to Service" lang="en">Teams</a>
+                        </div>
+                        <div class="m_listItem">
+                            <a href="#seventhSection" id="h_technology_sub" title="link to Technology" lang="en">Connect
+                                with us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!--BODY-->
+    <div class="b_container">
+
+        <!--First Section-->
+        <div class="b_firstSection" id="firstSection">
+            <div class="b_banner">
+                <img src="assets/img/main-slide01-img.gif" alt="main banner"/>
+            </div>
+            <div class="b_bannerText">
+                <div class="b_bannerSubj">
+                    D
+                    <img src="assets/img/logo_first.gif" alt="d">
+                    COMPANY
+                </div>
+                <div class="b_bannerSubContents mt-3">
+                    A whole new way of working
+                </div>
+                <img src="assets/img/dcom-icon02.jpg" alt="line"/>
+            </div>
         </div>
 
-        <div class="m_bugger" id="menuBtn"><span></span></div>
-      </div>
+        <!--Second Section-->
+        <div class="b_secondSection" id="secondSection">
+            <div class="b_secondContainer d-flex row">
+                <div class="b_iframeContainer col-12 col-md-6">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/3sVNpNd4Z6A" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
+                <div class="b_whyDecompany  col-12 col-md-6">
+                    <div class="b_whyDecompany_title mb-4">
+                        Why decompany
+                    </div>
+                    <div class="b_whyDecompany_desc">
+                        Decompany connects knowledge creators and seekers to build a decentralized and incentive-based
+                        knowledge
+                        trading system.
+                        <br>
+                        <br>
+                        We create an environment that allows companies to work with people with most required skills
+                        from all around
+                        the world without hiring them, and at the same time, helps individuals work when and where they
+                        want and
+                        receive decent rewards without being hired by a certain company. We have realized that a wealth
+                        of knowledge
+                        and a good number of Knowledge Creators are not fully tapped. In order to solve this problem, we
+                        plan to
+                        create a Decentralized and Incentive-based knowledge trading system“Decompany.”
+                        <br>
+                        <br>
+                        <span>Through “Connections” on the system, we will decentralize a company, or “Decompany.”</span>
+                    </div>
+                </div>
+            </div>
 
-      <div id="menu">
-        <div class="m_wrapper" id="mWrapper"></div>
-        <div class="m_container" id="mContainer">
-          <div class="m_title" lang="en">
-            <div class="m_close" id="menuCloseBtn"><span></span></div>
-          </div>
-          <div class="m_list">
-            <div class="m_listItem">
-              <a href="#fourthSection" id="h_summary_sub" title="link to Summary" lang="en">Decompany Today</a>
+            <div class="b_whyDecompany_bg">
+                <img src="assets/img/dcom-icon20.png" alt="decompany"/>
             </div>
-            <div class="m_listItem">
-              <a href="#fifthSection" id="h_service_sub" title="link to Service" lang="en">Teams</a>
-            </div>
-            <div class="m_listItem">
-              <a href="#seventhSection" id="h_technology_sub" title="link to Technology" lang="en">Connect with us</a>
-            </div>
-          </div>
         </div>
-      </div>
+
+
+        <!--Third Section-->
+        <div class="b_thirdSection" id="thirdSection">
+            <div class="b_third_bg">
+                <div class="b_third_imageWrapper">
+                    <img src="assets/img/dc-img04.jpg" alt="polaris share banner"/>
+                </div>
+            </div>
+            <div class="b_third_contents">
+                <div class="b_poLogoContainer">
+                    <img src="assets/img/dcom-icon19.png" alt="polaris office logo"/>
+                </div>
+                <div class="b_poExplainContainer">
+                    <div class="b_poExplain_title">
+                        Initiated with Global Top Office Software, Polaris Office
+                    </div>
+                    <div class="b_poExplain_desc">
+                        Polaris Office Service, which is a foundation for the Decompany project, is a cloud office
+                        service that is
+                        compatible
+                        <br>
+                        with the MS Office and Adobe PDF. It can be run on various platforms such as Windows, Mac, iOS,
+                        and Android,
+                        <br>
+                        and it supports various document formats such as Word, Excel, PowerPoint, PDF, and TXT.
+                    </div>
+                </div>
+                <div class="b_poCardContainer d-flex row">
+                    <div class="b_poCardWrapper col-12 col-sm-6 col-md-3">
+                        <div class="b_poCard">
+                            <div class="b_poCardImgContainer">
+                                <div class="b_poCardImgWrapper">
+                                    <img src="assets/img/dcom-icon15.png" alt="polaris office card"/>
+                                    <div class="b_poCardNumber">
+                                        100%
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="b_poCardExplain">
+                                Outstanding compatibility to view
+                                and edit all kinds of documents
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b_poCardWrapper col-12 col-sm-6 col-md-3">
+                        <div class="b_poCard">
+                            <div class="b_poCardImgContainer">
+                                <div class="b_poCardImgWrapper">
+                                    <img src="assets/img/dcom-icon16.png" alt="polaris office card"/>
+                                    <div class="b_poCardNumber">
+                                        900,000,000
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="b_poCardExplain">
+                                Installed on mord than 900 million Android
+                                devices from global manufacturers,
+                                such as Samsung. LG, HTC, and more
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b_poCardWrapper col-12 col-sm-6 col-md-3">
+                        <div class="b_poCard">
+                            <div class="b_poCardImgContainer">
+                                <div class="b_poCardImgWrapper">
+                                    <img src="assets/img/dcom-icon17.png" alt="polaris office card"/>
+                                    <div class="b_poCardNumber">
+                                        85,000,000
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="b_poCardExplain">
+                                Used by more than 85 Million subscribers
+                                in 240 countries and 50,000 new
+                                subscribers every day.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b_poCardWrapper col-12 col-sm-6 col-md-3">
+                        <div class="b_poCard">
+                            <div class="b_poCardImgContainer">
+                                <div class="b_poCardImgWrapper">
+                                    <img src="assets/img/dcom-icon18.png" alt="polaris office card"/>
+                                    <div class="b_poCardNumber">
+                                        1,000,000,000
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="b_poCardExplain">
+                                More than 1 Billion documents were
+                                created and another 500,000 are
+                                newly uploaded every day.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="b_poLinkContainer">
+                    <a href="https://www.polarisoffice.com">
+                        <div class="b_poLink">
+                            www.PolarisOffice.com
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!--Fourth Section-->
+        <div class="b_fourthSection" id="fourthSection">
+            <div class="b_decompanyTodayContainer">
+                Decompany Today
+            </div>
+
+            <div class="b_newsCardSectionContainer d-flex" id="newsCardContainer">
+
+                <div class="b_newsArrowContainer" id="newsArrowLeft">
+                    <img src="assets/img/dcom-icon04.png" alt="left arrow">
+                </div>
+
+                <div class="b_newsCardSection show row" id="newsCardSection_1">
+                    <div class="b_newsCardWrapper col-12 col-lg-4">
+                        <div class="b_newsCard">
+                            <div class="b_newsCardImgContainer">
+                                <a href="http://www.fntoday.co.kr/news/articleView.html?idxno=219998"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    <img src="assets/img/news/news_7.png" alt="news"/>
+                                </a>
+                            </div>
+                            <div class="b_newsCardTitleContainer d-flex">
+                                <div class="b_newsCardKind">NEWS</div>
+                                <div class="b_newsCardTitle">
+                                    이더리움 창립 멤버가 투자한 ‘폴라리스쉐어’, 글로벌 서비스 오픈 앞둬
+                                </div>
+                            </div>
+                            <div class="b_newsCardDate">
+                                2020.06.10
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="b_newsCardWrapper col-12 col-lg-4">
+                        <div class="b_newsCard">
+                            <div class="b_newsCardImgContainer">
+                                <a href="https://m.etnews.com/20200520000281"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    <img src="assets/img/news/news_8.png" alt="news"/>
+                                </a>
+                            </div>
+                            <div class="b_newsCardTitleContainer d-flex">
+                                <div class="b_newsCardKind">NEWS</div>
+                                <div class="b_newsCardTitle">
+                                    컨센시스 투자 유치한 디컴퍼니, '폴라리스쉐어' 글로벌 출시 준비
+                                </div>
+                            </div>
+                            <div class="b_newsCardDate">
+                                2020.05.20
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="b_newsCardWrapper col-12 col-lg-4">
+                        <div class="b_newsCard">
+                            <div class="b_newsCardImgContainer">
+                                <a href="https://news.naver.com/main/read.nhn?mode=LSD&mid=sec&sid1=101&oid=366&aid=0000525009"
+                                   target="_blank">
+                                    <img src="assets/img/news/news_10.png" alt="news"/>
+                                </a>
+                            </div>
+                            <div class="b_newsCardTitleContainer d-flex">
+                                <div class="b_newsCardKind">NEWS</div>
+                                <div class="b_newsCardTitle">
+                                    인프라웨어, 블록체인 폴라리스 쉐어와 전략적 투자 협력
+                                </div>
+                            </div>
+                            <div class="b_newsCardDate">
+                                2020.05.18
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="b_newsCardSection row" id="newsCardSection_2">
+                    <div class="b_newsCardWrapper col-12 col-lg-4">
+                        <div class="b_newsCard">
+                            <div class="b_newsCardImgContainer">
+                                <a href="https://news.naver.com/main/read.nhn?mode=LSD&mid=sec&sid1=105&oid=468&aid=0000658851"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    <img src="assets/img/news/news_9.png" alt="news"/>
+                                </a>
+                            </div>
+                            <div class="b_newsCardTitleContainer d-flex">
+                                <div class="b_newsCardKind">NEWS</div>
+                                <div class="b_newsCardTitle">
+                                    폴라리스쉐어, 美 컨센시스 투자 유치… 서비스 출시
+                                </div>
+                            </div>
+                            <div class="b_newsCardDate">
+                                2020.05.15
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="b_newsCardWrapper col-12 col-lg-4">
+                        <div class="b_newsCard">
+                            <div class="b_newsCardImgContainer">
+                                <a href="https://youtu.be/xBCACX75N4o" target="_blank">
+                                    <img src="assets/img/news/news_2.jpg" alt="news"/>
+                                </a>
+                            </div>
+                            <div class="b_newsCardTitleContainer d-flex">
+                                <div class="b_newsCardKind">VIDEO</div>
+                                <div class="b_newsCardTitle">
+                                    Tachyon Demo Day 2018: Decompany Team Interview
+                                </div>
+                            </div>
+                            <div class="b_newsCardDate">
+                                2018.12.26
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="b_newsCardWrapper col-12 col-lg-4">
+                        <div class="b_newsCard">
+                            <div class="b_newsCardImgContainer">
+                                <a href="https://techlector.com/5-best-office-apps-for-iphone-and-ipad/"
+                                   target="_blank">
+                                    <img src="assets/img/news/news_3.jpg" alt="news"/>
+                                </a>
+                            </div>
+                            <div class="b_newsCardTitleContainer d-flex">
+                                <div class="b_newsCardKind">NEWS</div>
+                                <div class="b_newsCardTitle">
+                                    Polaris Office: 5 Best Office Apps for iPhone and iPad
+                                </div>
+                            </div>
+                            <div class="b_newsCardDate">
+                                2018.12.04
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="b_newsCardSection row" id="newsCardSection_3">
+                    <div class="b_newsCardWrapper col-12 col-lg-4">
+                        <div class="b_newsCard">
+                            <div class="b_newsCardImgContainer">
+                                <a href="https://youtu.be/bsfzLW0ncYg" target="_blank">
+                                    <img src="assets/img/news/news_1.jpg" alt="news"/>
+                                </a>
+                            </div>
+                            <div class="b_newsCardTitleContainer d-flex">
+                                <div class="b_newsCardKind">VIDEO</div>
+                                <div class="b_newsCardTitle">
+                                    Tachyon Demo Day 2018: Decompany Presentation
+                                </div>
+                            </div>
+                            <div class="b_newsCardDate">
+                                2018.12.26
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b_newsCardWrapper col-12 col-lg-4">
+                        <div class="b_newsCard">
+                            <div class="b_newsCardImgContainer">
+                                <a href="https://youtu.be/bsfzLW0ncYg" target="_blank">
+                                    <img src="assets/img/news/news_4.jpg" alt="news"/>
+                                </a>
+                            </div>
+                            <div class="b_newsCardTitleContainer d-flex">
+                                <div class="b_newsCardKind">News</div>
+                                <div class="b_newsCardTitle">
+                                    Tachyon Demo Day
+                                </div>
+                            </div>
+                            <div class="b_newsCardDate">
+                                2018.11.27
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b_newsCardWrapper col-12 col-lg-4">
+                        <div class="b_newsCard">
+                            <div class="b_newsCardImgContainer">
+                                <a href="https://coinrivet.com/consensys-tachyon-accelerator-first-batch-of-startups-announced/"
+                                   target="_blank">
+                                    <img src="assets/img/news/news_5.jpg" alt="news"/>
+                                </a>
+                            </div>
+                            <div class="b_newsCardTitleContainer d-flex">
+                                <div class="b_newsCardKind">News</div>
+                                <div class="b_newsCardTitle">
+                                    ConsenSys’ Tachyon accelerator: first batch of startups announced
+                                </div>
+                            </div>
+                            <div class="b_newsCardDate">
+                                2018.09.11
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="b_newsCardSection row" id="newsCardSection_4">
+                    <div class="b_newsCardWrapper col-12 col-lg-4">
+                        <div class="b_newsCard">
+                            <div class="b_newsCardImgContainer">
+                                <a href="https://techlector.com/5-best-office-apps-for-iphone-and-ipad/"
+                                   target="_blank">
+                                    <img src="assets/img/news/news_6.jpg" alt="news"/>
+                                </a>
+                            </div>
+                            <div class="b_newsCardTitleContainer d-flex">
+                                <div class="b_newsCardKind">NEWS</div>
+                                <div class="b_newsCardTitle">
+                                    Kicking Off ConsenSys’ Tachyon Accelerator Program
+                                </div>
+                            </div>
+                            <div class="b_newsCardDate">
+                                2018.09.07
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="b_newsArrowContainer justify-content-flex-end" id="newsArrowRight">
+                    <img src="assets/img/dcom-icon05.png" alt="right arrow">
+                </div>
+
+            </div>
+
+            <!--  <div class="b_newsCardMoreViewContainer">
+                <div class="b_newsCardMoreView">
+                  More View
+                </div>
+              </div>-->
+        </div>
+
+
+        <!--Fifth Section-->
+        <div class="b_fifthSection" id="fifthSection">
+            <div class="b_fifthContainer">
+                <div class="b_decompanyTeam">
+                    Decompany Team
+                </div>
+
+                <div class="b_teamContainer">
+                    <div class="b_team row">
+                        <div class="b_memberContainer_1 col-12 col-md-6">
+                            <div class="d-flex mb-4">
+                                <div class="b_linkedin">
+                                    <a href="https://www.linkedin.com/in/dalsam/"
+                                       aria-label="link to linkedin, Miles H. Lee" target="_blank" title="link to linkedin, Miles H. Lee">
+                                        <img src="assets/img/linkedin.png" alt="linkedin logo"/>
+                                    </a>
+                                </div>
+                                <div class="b_memberNameContainer">
+                                    <div class="b_memberName">
+                                        Miles H. Lee
+                                    </div>
+                                    <div class="b_memberRank">
+                                        Chief Executive Officer
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="b_memberCareerContainer">
+                                <div class="b_memberCareer">Current CEO of Decompany</div>
+                                <div class="b_memberCareer">Current CEO of INFRAWARE(KOSDAQ Listed)</div>
+                                <div class="b_memberCareer">Former CFO of SELVAS Healthcare(KOSDAQ Listed)</div>
+                                <div class="b_memberCareer">Strategy Planning Manager of INFRAWARE</div>
+                                <div class="b_memberCareer">Lead Engineer of Mobile Browser Development</div>
+                                <div class="b_memberCareer">Manager of Browser Sales Team</div>
+                                <div class="b_memberCareer">Computer Science, Yonsei University</div>
+                            </div>
+                        </div>
+
+                        <div class="b_memberContainer_2 col-12 col-md-6">
+                            <div class="d-flex mb-4">
+                                <div class="b_linkedin">
+                                    <a href="https://www.linkedin.com/in/eddie-kwak/"
+                                       aria-label="link to linkedin, Eddie M. Kwak" target="_blank" title="link to linkedin, Eddie M. Kwak">
+                                        <img src="assets/img/linkedin.png" alt="linkedin logo"/>
+                                    </a>
+                                </div>
+                                <div class="b_memberNameContainer">
+                                    <div class="b_memberName">
+                                        Eddie M. Kwak
+                                    </div>
+                                    <div class="b_memberRank">
+                                        Chief Strategy Officer
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="b_memberCareerContainer">
+                                <div class="b_memberCareer">Current CSO of Decompany</div>
+                                <div class="b_memberCareer">Current Chairman of SELVAS Group ; Consists of 3 KOSDAQ, 1
+                                    KONEX Listed
+                                    Company
+                                </div>
+                                <div class="b_memberCareer">Founder of INFRAWARE(KOSDAQ Listed)</div>
+                                <div class="b_memberCareer">MA, Computer Science, Hankuk University of Foreign Studies
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="b_memberContainer_3 col-12 col-md-6">
+                            <div class="d-flex mb-4">
+                                <div class="b_linkedin">
+                                    <a href="https://www.linkedin.com/in/chris-lee-sw/"
+                                       aria-label="link to linkedin, Chris K. Lee" target="_blank" title="link to linkedin, Chris K. Lee">
+                                        <img src="assets/img/linkedin.png" alt="linkedin logo"/>
+                                    </a>
+                                </div>
+                                <div class="b_memberNameContainer">
+                                    <div class="b_memberName">
+                                        Chris K. Lee
+                                    </div>
+                                    <div class="b_memberRank">
+                                        Chief Technology Officer
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="b_memberCareerContainer">
+                                <div class="b_memberCareer">Current CTO of Decompany</div>
+                                <div class="b_memberCareer">Big Data, Cloud, Middleware Engineering & internet service
+                                    application
+                                    architecting
+                                </div>
+                                <div class="b_memberCareer">Material Science & Engineering, Korea University</div>
+                                <div class="b_memberCareer">Strategy Planning Manager of INFRAWARE</div>
+                            </div>
+                        </div>
+                        <div class="b_memberContainer_4 col-12 col-md-6">
+                            <div class="d-flex mb-4">
+                                <div class="b_linkedin">
+                                    <a href="https://www.linkedin.com/in/richard-yoon/"
+                                       aria-label="link to linkedin, Richard S. Yoon" target="_blank" title="link to linkedin, Richard S. Yoon">
+                                        <img src="assets/img/linkedin.png" alt="linkedin logo"/>
+                                    </a>
+                                </div>
+                                <div class="b_memberNameContainer">
+                                    <div class="b_memberName">
+                                        Richard S. Yoon
+                                    </div>
+                                    <div class="b_memberRank">
+                                        Chief Growth Officer
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="b_memberCareerContainer">
+                                <div class="b_memberCareer">Current CGO of Decompany</div>
+                                <div class="b_memberCareer">Current Vice President of SELVAS Group</div>
+                                <div class="b_memberCareer">Former Softbank Finance group</div>
+                                <div class="b_memberCareer">Former Merrill Lynch International</div>
+                                <div class="b_memberCareer">Vocal Department, Seoul National University</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="b_teamBg">
+                <img src="assets/img/dcom-icon21.png" alt="decompany"/>
+            </div>
+        </div>
+
+
+        <!--Sixth Section-->
+        <div class="b_sixthSection" id="sixthSection">
+            <div class="b_sixth_bg">
+                <div class="b_sixth_imageWrapper">
+                    <img src="assets/img/dc-img05.jpg" alt="polaris share banner"/>
+                </div>
+            </div>
+            <div class="b_sixthContainer">
+                <div class="b_strategyPartnerTitle">
+                    Strategy Partner
+                </div>
+
+                <div class="b_partnerContainer row">
+                    <div class="b_partner col-12 col-lg-4">
+                        <img src="assets/img/infraware.jpg" alt="infraware"/>
+                        <div class="b_partnerDesc">
+                            <div class="partnerDesc_title">
+                                Infraware Inc.
+                            </div>
+                            <div class="b_partnerDesc_contents">
+                                <div>Established 1997</div>
+                                <div>KOSDAQ LISTED 041020</div>
+                                <div>Main Business; Office Software
+                                    <br>
+                                    (Polaris Office) Mobile Games
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b_partner col-12 col-lg-4">
+                        <img src="assets/img/coinplug.jpg" alt="coinplug"/>
+                        <div class="b_partnerDesc">
+                            <div class="partnerDesc_title">
+                                Coinplug Inc.
+                            </div>
+                            <div class="b_partnerDesc_contents">
+                                <div>World's 2nd Blockchain Paterit holder</div>
+                                <div>Cryptocurrency Exchange (CPDAX)
+                                    <br>
+                                    Blockchain Platform
+                                    <br>
+                                    Blockchain Ecosystem (METADIUM)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b_partner col-12 col-lg-4">
+                        <img src="assets/img/consensys.jpg" alt="consensys"/>
+                        <div class="b_partnerDesc">
+                            <div class="partnerDesc_title">
+                                ConsensSys Ventures Inc.
+                            </div>
+                            <div class="b_partnerDesc_contents">
+                                <div>External Investment arm of ConsenSys</div>
+                                <div>Decompany is one of first cohort
+                                    <br>
+                                    cohort of Tachyon, acceleration program
+                                    by ConsenSys Ventures
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--Seventh Section-->
+        <div class="b_seventhSection" id="seventhSection">
+            <div class="b_seventhContainer">
+                <div class="b_connectWithUs">
+                    Connect with us
+                </div>
+
+                <div class="b_snsContainer row">
+                    <div>
+                        <a target="_blank" href="https://www.facebook.com/polarishare" title="link to facebook page">
+                            <div class="b_snsWrapper">
+                                <img src="https://res.share.decompany.io/static/image/sns/ic_sns_facebook.png"
+                                     alt="facebook">
+                                Official Facebook
+                            </div>
+                        </a>
+                    </div>
+
+                    <div>
+                        <a target="_blank" href="https://twitter.com/Polarishare" title="link to twitter">
+                            <div class="b_snsWrapper">
+                                <img src="https://res.share.decompany.io/static/image/sns/ic_sns_twitter.png"
+                                     alt="twitter">
+                                Official Twitter
+                            </div>
+                        </a>
+                    </div>
+
+                    <div>
+                        <a target="_blank" href="https://medium.com/@polarishare" title="link to medium">
+                            <div class="b_snsWrapper">
+                                <img src="https://res.share.decompany.io/static/image/sns/ic_sns_medium.png"
+                                     alt="medium">
+                                Official Medium
+                            </div>
+                        </a>
+                    </div>
+
+                    <div>
+                        <a href="#" title="link to blog" onclick="alert('Coming soon')">
+                            <div class="b_snsWrapper">
+                                <img src="https://res.share.decompany.io/static/image/sns/ic_sns_blog.png" alt="blog">
+                                Official Blog
+                            </div>
+                        </a>
+                    </div>
+
+                    <div>
+                        <a target="_blank" href="https://open.kakao.com/tm/sent/g8JceZec" title="link to kakaotalk">
+                            <div class="b_snsWrapper">
+                                <img src="https://res.share.decompany.io/static/image/sns/ic_sns_kakaotalk.png"
+                                     alt="kakaotalk">
+                                Official Kakaotalk
+                            </div>
+                        </a>
+                    </div>
+
+                    <div>
+                        <a target="_blank" href="https://t.me/polarishare" title="link to telegram">
+                            <div class="b_snsWrapper">
+                                <img src="https://res.share.decompany.io/static/image/sns/ic_sns_telegram.png"
+                                     alt="telegram">
+                                Official Telegram
+                            </div>
+                        </a>
+                    </div>
+
+                    <div>
+                        <a href="#" title="link to reddit" onclick="alert('Coming soon')">
+                            <div class="b_snsWrapper">
+                                <img src="https://res.share.decompany.io/static/image/sns/ic_sns_reddit.png"
+                                     alt="reddit">
+                                Official Reddit
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </header>
 
-
-  <!--BODY-->
-  <div class="b_container">
-
-    <!--First Section-->
-    <div class="b_firstSection" id="firstSection">
-      <div class="b_banner">
-        <img src="assets/img/main-slide01-img.gif" alt="main banner"/>
-      </div>
-      <div class="b_bannerText">
-        <div class="b_bannerSubj">
-          <img src="assets/img/logo_first.gif" alt="d">
-          DECOMPANY
-        </div>
-        <div class="b_bannerSubContents mt-3">
-          A whole new way of working
-        </div>
-        <img src="assets/img/dcom-icon02.jpg" alt="line"/>
-      </div>
-    </div>
-
-    <!--Second Section-->
-    <div class="b_secondSection d-flex row" id="secondSection">
-      <div class="b_iframeContainer col-12 col-md-6">
-        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/3sVNpNd4Z6A" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-      </div>
-      <div class="b_whyDecompany  col-12 col-md-6">
-        <div class="b_whyDecompany_title mb-4">
-          Why decompany
-        </div>
-        <div class="b_whyDecompany_desc">
-          Decompany connects knowledge creators and seekers to build a decentralized and incentive-based knowledge
-          trading system.
-          <br>
-          <br>
-          We create an environment that allows companies to work with people with most required skills from all around
-          the world without hiring them, and at the same time, helps individuals work when and where they want and
-          receive decent rewards without being hired by a certain company. We have realized that a wealth of knowledge
-          and a good number of Knowledge Creators are not fully tapped. In order to solve this problem, we plan to
-          create a Decentralized and Incentive-based knowledge trading system“Decompany.”
-          <br>
-          <br>
-          <span>Through “Connections” on the system, we will decentralize a company, or “Decompany.”</span>
-        </div>
-      </div>
-
-      <div class="b_whyDecompany_bg">
-        <img src="assets/img/dcom-icon20.png" alt="decompany"/>
-      </div>
-    </div>
-
-
-    <!--Third Section-->
-    <div class="b_thirdSection" id="thirdSection">
-      <div class="b_third_bg">
-        <div class="b_third_imageWrapper">
-          <img src="assets/img/dc-img04.jpg" alt="polaris share banner"/>
-        </div>
-      </div>
-      <div class="b_third_contents">
-        <div class="b_poLogoContainer">
-          <img src="assets/img/dcom-icon19.png" alt="polaris office logo"/>
-        </div>
-        <div class="b_poExplainContainer">
-          <div class="b_poExplain_title">
-            Initiated with Global Top Office Software, Polaris Office
-          </div>
-          <div class="b_poExplain_desc">
-            Polaris Office Service, which is a foundation for the Decompany project, is a cloud office service that is
-            compatible
-            <br>
-            with the MS Office and Adobe PDF. It can be run on various platforms such as Windows, Mac, iOS, and Android,
-            <br>
-            and it supports various document formats such as Word, Excel, PowerPoint, PDF, and TXT.
-          </div>
-        </div>
-        <div class="b_poCardContainer d-flex row">
-          <div class="b_poCardWrapper col-12 col-sm-6 col-md-3">
-            <div class="b_poCard">
-              <div class="b_poCardImgContainer">
-                <div class="b_poCardImgWrapper">
-                  <img src="assets/img/dcom-icon15.png" alt="polaris office card"/>
-                  <div class="b_poCardNumber">
-                    100%
-                  </div>
-                </div>
-              </div>
-              <div class="b_poCardExplain">
-                Outstanding compatibility to view
-                and edit all kinds of documents
-              </div>
-            </div>
-          </div>
-          <div class="b_poCardWrapper col-12 col-sm-6 col-md-3">
-            <div class="b_poCard">
-              <div class="b_poCardImgContainer">
-                <div class="b_poCardImgWrapper">
-                  <img src="assets/img/dcom-icon15.png" alt="polaris office card"/>
-                  <div class="b_poCardNumber">
-                    900,000,000
-                  </div>
-                </div>
-              </div>
-              <div class="b_poCardExplain">
-                Installed on mord than 900 million Android
-                devices from global manufacturers,
-                such as Samsung. LG, HTC, and more
-              </div>
-            </div>
-          </div>
-          <div class="b_poCardWrapper col-12 col-sm-6 col-md-3">
-            <div class="b_poCard">
-              <div class="b_poCardImgContainer">
-                <div class="b_poCardImgWrapper">
-                  <img src="assets/img/dcom-icon15.png" alt="polaris office card"/>
-                  <div class="b_poCardNumber">
-                    85,000,000
-                  </div>
-                </div>
-              </div>
-              <div class="b_poCardExplain">
-                Used by more than 85 Million subscribers
-                in 240 countries and 50,000 new
-                subscribers every day.
-              </div>
-            </div>
-          </div>
-          <div class="b_poCardWrapper col-12 col-sm-6 col-md-3">
-            <div class="b_poCard">
-              <div class="b_poCardImgContainer">
-                <div class="b_poCardImgWrapper">
-                  <img src="assets/img/dcom-icon15.png" alt="polaris office card"/>
-                  <div class="b_poCardNumber">
-                    1,000,000,000
-                  </div>
-                </div>
-              </div>
-              <div class="b_poCardExplain">
-                More than 1 Billion documents were
-                created and another 500,000 are
-                newly uploaded every day.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="b_poLinkContainer">
-          <a href="https://www.polarisoffice.com">
-            <div class="b_poLink">
-              www.PolarisOffice.com
-            </div>
-          </a>
-        </div>
-      </div>
-
-    </div>
-
-
-    <!--Fourth Section-->
-    <div class="b_fourthSection" id="fourthSection">
-      <div class="b_decompanyTodayContainer">
-        Decompany Today
-      </div>
-
-      <div class="b_newsCardSectionContainer d-flex" id="newsCardContainer">
-
-        <div class="b_newsArrowContainer" id="newsArrowLeft">
-          <img src="assets/img/dcom-icon04.png" alt="left arrow">
-        </div>
-
-        <div class="b_newsCardSection show row" id="newsCardSection_1">
-          <div class="b_newsCardWrapper col-12 col-lg-4">
-            <div class="b_newsCard">
-              <div class="b_newsCardImgContainer">
-                <a href="https://youtu.be/bsfzLW0ncYg" target="_blank">
-                  <img src="assets/img/news/news_1.jpg" alt="news"/>
-                </a>
-              </div>
-              <div class="b_newsCardTitleContainer d-flex">
-                <div class="b_newsCardKind">VIDEO</div>
-                <div class="b_newsCardTitle">
-                  Tachyon Demo Day 2018: Decompany Presentation
-                </div>
-              </div>
-              <div class="b_newsCardDate">
-                2018.12.26
-              </div>
-            </div>
-          </div>
-
-          <div class="b_newsCardWrapper col-12 col-lg-4">
-            <div class="b_newsCard">
-              <div class="b_newsCardImgContainer">
-                <a href="https://youtu.be/xBCACX75N4o" target="_blank">
-                  <img src="assets/img/news/news_2.jpg" alt="news"/>
-                </a>
-              </div>
-              <div class="b_newsCardTitleContainer d-flex">
-                <div class="b_newsCardKind">VIDEO</div>
-                <div class="b_newsCardTitle">
-                  Tachyon Demo Day 2018: Decompany Team Interview
-                </div>
-              </div>
-              <div class="b_newsCardDate">
-                2018.12.26
-              </div>
-            </div>
-          </div>
-
-          <div class="b_newsCardWrapper col-12 col-lg-4">
-            <div class="b_newsCard">
-              <div class="b_newsCardImgContainer">
-                <a href="https://techlector.com/5-best-office-apps-for-iphone-and-ipad/" target="_blank">
-                  <img src="assets/img/news/news_3.jpg" alt="news"/>
-                </a>
-              </div>
-              <div class="b_newsCardTitleContainer d-flex">
-                <div class="b_newsCardKind">NEWS</div>
-                <div class="b_newsCardTitle">
-                  Polaris Office: 5 Best Office Apps for iPhone and iPad
-                </div>
-              </div>
-              <div class="b_newsCardDate">
-                2018.12.04
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="b_newsCardSection row" id="newsCardSection_2">
-          <div class="b_newsCardWrapper col-12 col-lg-4">
-            <div class="b_newsCard">
-              <div class="b_newsCardImgContainer">
-                <a href="https://youtu.be/bsfzLW0ncYg" target="_blank">
-                  <img src="assets/img/news/news_4.jpg" alt="news"/>
-                </a>
-              </div>
-              <div class="b_newsCardTitleContainer d-flex">
-                <div class="b_newsCardKind">News</div>
-                <div class="b_newsCardTitle">
-                  Tachyon Demo Day
-                </div>
-              </div>
-              <div class="b_newsCardDate">
-                2018.11.27
-              </div>
-            </div>
-          </div>
-
-          <div class="b_newsCardWrapper col-12 col-lg-4">
-            <div class="b_newsCard">
-              <div class="b_newsCardImgContainer">
-                <a href="https://coinrivet.com/consensys-tachyon-accelerator-first-batch-of-startups-announced/"
-                   target="_blank">
-                  <img src="assets/img/news/news_5.jpg" alt="news"/>
-                </a>
-              </div>
-              <div class="b_newsCardTitleContainer d-flex">
-                <div class="b_newsCardKind">News</div>
-                <div class="b_newsCardTitle">
-                  ConsenSys’ Tachyon accelerator: first batch of startups announced
-                </div>
-              </div>
-              <div class="b_newsCardDate">
-                2018.09.11
-              </div>
-            </div>
-          </div>
-
-          <div class="b_newsCardWrapper col-12 col-lg-4">
-            <div class="b_newsCard">
-              <div class="b_newsCardImgContainer">
-                <a href="https://techlector.com/5-best-office-apps-for-iphone-and-ipad/" target="_blank">
-                  <img src="assets/img/news/news_6.jpg" alt="news"/>
-                </a>
-              </div>
-              <div class="b_newsCardTitleContainer d-flex">
-                <div class="b_newsCardKind">NEWS</div>
-                <div class="b_newsCardTitle">
-                  Kicking Off ConsenSys’ Tachyon Accelerator Program
-                </div>
-              </div>
-              <div class="b_newsCardDate">
-                2018.09.07
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="b_newsArrowContainer justify-content-flex-end" id="newsArrowRight">
-          <img src="assets/img/dcom-icon05.png" alt="right arrow">
-        </div>
-
-      </div>
-
-      <!--  <div class="b_newsCardMoreViewContainer">
-          <div class="b_newsCardMoreView">
-            More View
-          </div>
-        </div>-->
-    </div>
-
-
-    <!--Fifth Section-->
-    <div class="b_fifthSection" id="fifthSection">
-      <div class="b_fifthContainer">
-        <div class="b_decompanyTeam">
-          Decompany Team
-        </div>
-
-        <div class="b_teamContainer">
-          <div class="b_team row">
-            <div class="b_memberContainer_1 col-12 col-md-6">
-              <div class="d-flex mb-4">
-                <div class="b_linkedin">
-                  <img src="assets/img/linkedin.png" alt="linkedin logo"/>
-                </div>
-                <div class="b_memberNameContainer">
-                  <div class="b_memberName">
-                    Miles H. Lee
-                  </div>
-                  <div class="b_memberRank">
-                    Chief Executive Officer
-                  </div>
-                </div>
-              </div>
-              <div class="b_memberCareerContainer">
-                <div class="b_memberCareer">Current CEO of Decompany</div>
-                <div class="b_memberCareer">Current CEO of INFRAWARE(KOSDAQ Listed)</div>
-                <div class="b_memberCareer">Former CFO of SELVAS Healthcare(KOSDAQ Listed)</div>
-                <div class="b_memberCareer">Strategy Planning Manager of INFRAWARE</div>
-                <div class="b_memberCareer">Lead Engineer of Mobile Browser Development</div>
-                <div class="b_memberCareer">Manager of Browser Sales Team</div>
-                <div class="b_memberCareer">Computer Science, Yonsei University</div>
-              </div>
+    <!--FOOTER-->
+    <footer class="">
+        <div class="f_container row">
+            <div class="f_firstSection col-12 col-lg-3">
+                <img src="assets/img/f_logo.png" alt="footer decompany logo"/>
             </div>
 
-            <div class="b_memberContainer_2 col-12 col-md-6">
-              <div class="d-flex mb-4">
-                <div class="b_linkedin">
-                  <img src="assets/img/linkedin.png" alt="linkedin logo"/>
+            <div class="f_secondSection  row  col-12 col-lg-6">
+                <div class="f_corpContainer">
+                    <div class="f_corpNameSubj">
+                        CORPORATE NAME
+                    </div>
+                    <div class="f_corpName">
+                        DECOMPANY GLOBAL, INC. PTE. LTD.
+                    </div>
                 </div>
-                <div class="b_memberNameContainer">
-                  <div class="b_memberName">
-                    Eddie M. Kwak
-                  </div>
-                  <div class="b_memberRank">
-                    Chief Strategy Officer
-                  </div>
+                <div class="f_corpContainer">
+                    <div class="f_corpNameSubj">
+                        EMAIL
+                    </div>
+                    <div class="f_corpName">
+                        connect@decompany.io
+                    </div>
                 </div>
-              </div>
-              <div class="b_memberCareerContainer">
-                <div class="b_memberCareer">Current CSO of Decompany</div>
-                <div class="b_memberCareer">Current Chairman of SELVAS Group ; Consists of 3 KOSDAQ, 1 KONEX Listed
-                  Company
-                </div>
-                <div class="b_memberCareer">Founder of INFRAWARE(KOSDAQ Listed)</div>
-                <div class="b_memberCareer">MA, Computer Science, Hankuk University of Foreign Studies</div>
-              </div>
             </div>
 
-            <div class="b_memberContainer_3 col-12 col-md-6">
-              <div class="d-flex mb-4">
-                <div class="b_linkedin">
-                  <img src="assets/img/linkedin.png" alt="linkedin logo"/>
+            <div class="f_thirdSection col-12 col-lg-3">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        FAMILY SITE
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://polarishare.io/" title="Link to Polaris Share">Polaris Share IR</a></li>
+                        <li><a href="https://polarishare.com/" title="Link to Polaris Share">Polaris Share</a></li>
+                        <li><a href="https://www.polarisoffice.com/ko/" title="Link to Polaris Office">Polaris
+                            Office</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="b_memberNameContainer">
-                  <div class="b_memberName">
-                    Chris K. Lee
-                  </div>
-                  <div class="b_memberRank">
-                    Chief Technology Officer
-                  </div>
-                </div>
-              </div>
-              <div class="b_memberCareerContainer">
-                <div class="b_memberCareer">Current CTO of Decompany</div>
-                <div class="b_memberCareer">Big Data, Cloud, Middleware Engineering & internet service application
-                  architecting
-                </div>
-                <div class="b_memberCareer">Material Science & Engineering, Korea University</div>
-                <div class="b_memberCareer">Strategy Planning Manager of INFRAWARE</div>
-              </div>
             </div>
-            <div class="b_memberContainer_4 col-12 col-md-6">
-              <div class="d-flex mb-4">
-                <div class="b_linkedin">
-                  <img src="assets/img/linkedin.png" alt="linkedin logo"/>
-                </div>
-                <div class="b_memberNameContainer">
-                  <div class="b_memberName">
-                    Richard S. Yoon
-                  </div>
-                  <div class="b_memberRank">
-                    Chief Growth Officer
-                  </div>
-                </div>
-              </div>
-              <div class="b_memberCareerContainer">
-                <div class="b_memberCareer">Current CGO of Decompany</div>
-                <div class="b_memberCareer">Current Vice President of SELVAS Group</div>
-                <div class="b_memberCareer">Former Softbank Finance group</div>
-                <div class="b_memberCareer">Former Merrill Lynch International</div>
-                <div class="b_memberCareer">Vocal Department, Seoul National University</div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-
-      <div class="b_teamBg">
-        <img src="assets/img/dcom-icon21.png" alt="decompany"/>
-      </div>
-    </div>
-
-
-    <!--Sixth Section-->
-    <div class="b_sixthSection" id="sixthSection">
-      <div class="b_sixth_bg">
-        <div class="b_sixth_imageWrapper">
-          <img src="assets/img/dc-img05.jpg" alt="polaris share banner"/>
-        </div>
-      </div>
-      <div class="b_sixthContainer">
-        <div class="b_strategyPartnerTitle">
-          Strategy Partner
-        </div>
-
-        <div class="b_partnerContainer row">
-          <div class="b_partner col-12 col-lg-4">
-            <img src="assets/img/infraware.jpg" alt="infraware"/>
-            <div class="b_partnerDesc">
-              <div class="partnerDesc_title">
-                Infraware Inc.
-              </div>
-              <div class="b_partnerDesc_contents">
-                <div>Established 1997</div>
-                <div>KOSDAQ LISTED 041020</div>
-                <div>Main Business; Office Software
-                  <br>
-                  (Polaris Office) Mobile Games
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="b_partner col-12 col-lg-4">
-            <img src="assets/img/coinplug.jpg" alt="coinplug"/>
-            <div class="b_partnerDesc">
-              <div class="partnerDesc_title">
-                Coinplug Inc.
-              </div>
-              <div class="b_partnerDesc_contents">
-                <div>World's 2nd Blockchain Paterit holder</div>
-                <div>Cryptocurrency Exchange (CPDAX)
-                  <br>
-                  Blockchain Platform
-                  <br>
-                  Blockchain Ecosystem (METADIUM)
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="b_partner col-12 col-lg-4">
-            <img src="assets/img/consensys.jpg" alt="consensys"/>
-            <div class="b_partnerDesc">
-              <div class="partnerDesc_title">
-                ConsensSys Ventures Inc.
-              </div>
-              <div class="b_partnerDesc_contents">
-                <div>External Investment arm of ConsenSys</div>
-                <div>Decompany is one of first cohort
-                  <br>
-                  cohort of Tachyon, acceleration program
-                  by ConsenSys Ventures
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <!--Seventh Section-->
-    <div class="b_seventhSection" id="seventhSection">
-      <div class="b_seventhContainer">
-        <div class="b_connectWithUs">
-          Connect with us
-        </div>
-
-        <div class="b_snsContainer row">
-          <div>
-            <a target="_blank" href="https://www.facebook.com/polarishare" title="link to facebook page">
-              <div class="b_snsWrapper">
-                <img src="https://res.share.decompany.io/static/image/sns/ic_sns_facebook.png"
-                     alt="facebook">
-                Official Facebook
-              </div>
-            </a>
-          </div>
-
-          <div>
-            <a target="_blank" href="https://twitter.com/Polarishare" title="link to twitter">
-              <div class="b_snsWrapper">
-                <img src="https://res.share.decompany.io/static/image/sns/ic_sns_twitter.png" alt="twitter">
-                Official Twitter
-              </div>
-            </a>
-          </div>
-
-          <div>
-            <a target="_blank" href="https://medium.com/@polarishare" title="link to medium">
-              <div class="b_snsWrapper">
-                <img src="https://res.share.decompany.io/static/image/sns/ic_sns_medium.png" alt="medium">
-                Official Medium
-              </div>
-            </a>
-          </div>
-
-          <div>
-            <a href="#" title="link to blog" onclick="alert('Coming soon')">
-              <div class="b_snsWrapper">
-                <img src="https://res.share.decompany.io/static/image/sns/ic_sns_blog.png" alt="blog">
-                Official Blog
-              </div>
-            </a>
-          </div>
-
-          <div>
-            <a target="_blank" href="https://open.kakao.com/tm/sent/g8JceZec" title="link to kakaotalk">
-              <div class="b_snsWrapper">
-                <img src="https://res.share.decompany.io/static/image/sns/ic_sns_kakaotalk.png" alt="kakaotalk">
-                Official Kakaotalk
-              </div>
-            </a>
-          </div>
-
-          <div>
-            <a target="_blank" href="https://t.me/polarishare" title="link to telegram">
-              <div class="b_snsWrapper">
-                <img src="https://res.share.decompany.io/static/image/sns/ic_sns_telegram.png" alt="telegram">
-                Official Telegram
-              </div>
-            </a>
-          </div>
-
-          <div>
-            <a href="#" title="link to reddit" onclick="alert('Coming soon')">
-              <div class="b_snsWrapper">
-                <img src="https://res.share.decompany.io/static/image/sns/ic_sns_reddit.png" alt="reddit">
-                Official Reddit
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--FOOTER-->
-  <footer class="f_container row">
-    <div class="f_firstSection col-12 col-lg-3">
-      <img src="assets/img/f_logo.png" alt="footer decompany logo"/>
-    </div>
-
-    <div class="f_secondSection  row  col-12 col-lg-6">
-      <div class="f_corpContainer">
-        <div class="f_corpNameSubj">
-          CORPORATE NAME
-        </div>
-        <div class="f_corpName">
-          DECOMPANY GLOBAL, INC. PTE. LTD.
-        </div>
-      </div>
-      <div class="f_corpContainer">
-        <div class="f_corpNameSubj">
-          EMAIL
-        </div>
-        <div class="f_corpName">
-          connect@decompany.io
-        </div>
-      </div>
-    </div>
-
-    <div class="f_thirdSection col-12 col-lg-3">
-      <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-          FAMILY SITE
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-          <li><a href="https://polarishare.io/" title="Link to Polaris Share">Polaris Share IR</a></li>
-          <li><a href="https://polarishare.com/" title="Link to Polaris Share">Polaris Share</a></li>
-          <li><a href="https://www.polarisoffice.com/ko/" title="Link to Polaris Office">Polaris Office</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
+    </footer>
 </div>
 
 </body>
