@@ -24,27 +24,31 @@
 
             $(function () {
 
-                let pressShowFlag = 1;
-                let totalPressListCount = $("#newsCardContainer > div").length - 2;
+                let pressShowFlag = 0;
+                let totalPressListCount = Math.ceil($("#newsCardSection > div").length / 3);
 
-                function removeClassPress () {
-                    for(let i =1; i <= totalPressListCount; ++ i) {
-                        $('#newsCardSection_' + i).removeClass('show')
+                function removeClassPress() {
+                    $('#newsCardSection > div').removeClass('show')
+                }
+
+                function addClassPress() {
+                    for (let i = 1; i <= 3; ++i) {
+                        $(`#newsCardSection > div:nth-child(${pressShowFlag * 3 + i})`).addClass('show')
                     }
                 }
 
                 // click news left arrow
                 $('#newsArrowLeft').click(function () {
                     removeClassPress()
-                    pressShowFlag = 0 >= pressShowFlag - 1 ? totalPressListCount : pressShowFlag - 1
-                    $('#newsCardSection_' + pressShowFlag).addClass('show')
+                    pressShowFlag = 0 === pressShowFlag ? totalPressListCount - 1 : pressShowFlag - 1
+                    addClassPress()
                 })
 
                 // click news right arrow
                 $('#newsArrowRight').click(function () {
                     removeClassPress()
-                    pressShowFlag = totalPressListCount < pressShowFlag + 1 ? 1 : pressShowFlag + 1
-                    $('#newsCardSection_' + pressShowFlag).addClass('show')
+                    pressShowFlag = totalPressListCount - 1 === pressShowFlag ? 0 : pressShowFlag + 1
+                    addClassPress()
                 })
 
                 $("#menuBtn").click(function () {
@@ -66,6 +70,8 @@
                         $('body').css('overflow', 'auto')
                     }, 500)
                 })
+
+                addClassPress()
             });
         })();
     </script>
@@ -315,7 +321,52 @@
                     <img src="assets/img/dcom-icon04.png" alt="left arrow">
                 </div>
 
-                <div class="b_newsCardSection show row" id="newsCardSection_1">
+                <div class="b_newsCardSection row" id="newsCardSection">
+
+
+
+                    <div class="b_newsCardWrapper col-12 col-lg-4">
+                        <div class="p_card">
+                            <div class="b_newsCardImgContainer">
+                                <a href="https://news.mt.co.kr/mtview.php?no=2020062219130961528"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    <img src="assets/img/news/news_12.png" alt="news"/>
+                                </a>
+                            </div>
+                            <div class="b_newsCardTitleContainer d-flex">
+                                <div class="b_newsCardKind">NEWS</div>
+                                <div class="b_newsCardTitle">
+                                    블록체인 프로젝트 ‘폴라리스쉐어’, 분산형 인센티브 지식 거래 플랫폼
+                                </div>
+                            </div>
+                            <div class="b_newsCardDate">
+                                2020.06.23
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="b_newsCardWrapper col-12 col-lg-4">
+                        <div class="p_card">
+                            <div class="b_newsCardImgContainer">
+                                <a href="http://coinreaders.com/7599"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    <img src="assets/img/news/news_11.jpg" alt="news"/>
+                                </a>
+                            </div>
+                            <div class="b_newsCardTitleContainer d-flex">
+                                <div class="b_newsCardKind">NEWS</div>
+                                <div class="b_newsCardTitle">
+                                    헥슬란트, 일반투자자에게 '블록체인 프로젝트 기술 리포트' 공개
+                                </div>
+                            </div>
+                            <div class="b_newsCardDate">
+                                2020.06.12
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="b_newsCardWrapper col-12 col-lg-4">
                         <div class="b_newsCard">
                             <div class="b_newsCardImgContainer">
@@ -377,10 +428,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-
-                <div class="b_newsCardSection row" id="newsCardSection_2">
                     <div class="b_newsCardWrapper col-12 col-lg-4">
                         <div class="b_newsCard">
                             <div class="b_newsCardImgContainer">
@@ -440,10 +488,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-
-                <div class="b_newsCardSection row" id="newsCardSection_3">
                     <div class="b_newsCardWrapper col-12 col-lg-4">
                         <div class="b_newsCard">
                             <div class="b_newsCardImgContainer">
@@ -462,6 +507,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="b_newsCardWrapper col-12 col-lg-4">
                         <div class="b_newsCard">
                             <div class="b_newsCardImgContainer">
@@ -480,6 +526,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="b_newsCardWrapper col-12 col-lg-4">
                         <div class="b_newsCard">
                             <div class="b_newsCardImgContainer">
@@ -499,10 +546,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-
-                <div class="b_newsCardSection row" id="newsCardSection_4">
                     <div class="b_newsCardWrapper col-12 col-lg-4">
                         <div class="b_newsCard">
                             <div class="b_newsCardImgContainer">
@@ -552,7 +596,8 @@
                             <div class="d-flex mb-4">
                                 <div class="b_linkedin">
                                     <a href="https://www.linkedin.com/in/dalsam/"
-                                       aria-label="link to linkedin, Miles H. Lee" target="_blank" title="link to linkedin, Miles H. Lee">
+                                       aria-label="link to linkedin, Miles H. Lee" target="_blank"
+                                       title="link to linkedin, Miles H. Lee">
                                         <img src="assets/img/linkedin.png" alt="linkedin logo"/>
                                     </a>
                                 </div>
@@ -580,7 +625,8 @@
                             <div class="d-flex mb-4">
                                 <div class="b_linkedin">
                                     <a href="https://www.linkedin.com/in/eddie-kwak/"
-                                       aria-label="link to linkedin, Eddie M. Kwak" target="_blank" title="link to linkedin, Eddie M. Kwak">
+                                       aria-label="link to linkedin, Eddie M. Kwak" target="_blank"
+                                       title="link to linkedin, Eddie M. Kwak">
                                         <img src="assets/img/linkedin.png" alt="linkedin logo"/>
                                     </a>
                                 </div>
@@ -609,7 +655,8 @@
                             <div class="d-flex mb-4">
                                 <div class="b_linkedin">
                                     <a href="https://www.linkedin.com/in/chris-lee-sw/"
-                                       aria-label="link to linkedin, Chris K. Lee" target="_blank" title="link to linkedin, Chris K. Lee">
+                                       aria-label="link to linkedin, Chris K. Lee" target="_blank"
+                                       title="link to linkedin, Chris K. Lee">
                                         <img src="assets/img/linkedin.png" alt="linkedin logo"/>
                                     </a>
                                 </div>
@@ -636,7 +683,8 @@
                             <div class="d-flex mb-4">
                                 <div class="b_linkedin">
                                     <a href="https://www.linkedin.com/in/richard-yoon/"
-                                       aria-label="link to linkedin, Richard S. Yoon" target="_blank" title="link to linkedin, Richard S. Yoon">
+                                       aria-label="link to linkedin, Richard S. Yoon" target="_blank"
+                                       title="link to linkedin, Richard S. Yoon">
                                         <img src="assets/img/linkedin.png" alt="linkedin logo"/>
                                     </a>
                                 </div>

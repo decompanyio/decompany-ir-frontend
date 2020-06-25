@@ -418,12 +418,12 @@
 }
 
 .b_newsCardSection {
-    display: none;
     width: 100%;
 }
 
 .b_newsCardWrapper {
     margin-bottom: 3rem;
+    display: none;
 }
 
 .show {
